@@ -1,7 +1,7 @@
 name: Docker build and push to ECR
 on:
   push: 
-    branches: [ fargate ]
+    branches: [ master ]
 
 env:                
   ECR_REPOSITORY: nginx_puma_fargate                      
@@ -39,7 +39,7 @@ jobs:
       #     path: build
       #     retention-days: 1       
 
-jobs:
+  
   docker-build-push-sandbox:
     name: "Sandbox"
     runs-on: ubuntu-latest
