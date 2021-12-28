@@ -17,19 +17,22 @@ jobs:
       - uses: actions/checkout@v2
       - name: ssl generate
         run: |
+            mkdir -p ssl
+            cd ssl
             sudo apt-get install openssl -y
             sudo openssl req -new -newkey rsa:4096 -days 36500 -nodes -x509 \
               -subj "/C=US/ST=CA/L=SF/O=SPIRE/CN=spirehealth.com" \
-              -keyout spirehealth.com.key  -out spirehealth.com.cert   
-      - name: LS
-        run: |
+              -keyout spirehealth.com.key  -out spirehealth.com.cert
             ls -R
-            mkdir -p ssl
+            pwd
+#       - name: LS
+#         run: |
+#             ls -R
       - name: Temporarily save key artifact
         uses: actions/upload-artifact@v2
         with:
           name: Upload ssl certs
-          path: ssl/
+          path: ssl
           retention-days: 1
 
       # - name: Temporarily save cert artifact
