@@ -23,11 +23,10 @@ jobs:
             sudo openssl req -new -newkey rsa:4096 -days 36500 -nodes -x509 \
               -subj "/C=US/ST=CA/L=SF/O=SPIRE/CN=spirehealth.com" \
               -keyout spirehealth.com.key  -out spirehealth.com.cert
-            ls -R
             pwd
-#       - name: LS
-#         run: |
-#             ls -R
+      - name: LS
+        run: |
+            ls -R
       - name: Temporarily save key artifact
         uses: actions/upload-artifact@v2
         with:
@@ -45,6 +44,7 @@ jobs:
   
   docker-build-push-sandbox:
     name: "Sandbox"
+    needs: build
     runs-on: ubuntu-latest
     steps:
 
