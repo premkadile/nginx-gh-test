@@ -22,20 +22,22 @@ jobs:
               -subj "/C=US/ST=CA/L=SF/O=SPIRE/CN=spirehealth.com" \
               -keyout spirehealth.com.key  -out spirehealth.com.cert   
       - name: LS
-        run: ls -R
+        run: |
+            ls -R
+            mkdir -p ssl
       - name: Temporarily save key artifact
         uses: actions/upload-artifact@v2
         with:
-          name: spirehealth.com.key
-          path: build
+          name: Upload ssl certs
+          path: ssl
           retention-days: 1
 
-      - name: Temporarily save cert artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: spirehealth.com.crt
-          path: build
-          retention-days: 1       
+      # - name: Temporarily save cert artifact
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: spirehealth.com.crt
+      #     path: build
+      #     retention-days: 1       
 
 jobs:
   docker-build-push-sandbox:
@@ -69,14 +71,14 @@ jobs:
     - name: Retrieve saved key artifact
       uses: actions/download-artifact@v2
       with:
-        name: spirehealth.com.key
-        path: build 
+        name: Get ssl certs
+        path: ssl 
 
-    - name: Retrieve saved cert artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: spirehealth.com.crt
-        path: build
+    # - name: Retrieve saved cert artifact
+    #   uses: actions/download-artifact@v2
+    #   with:
+    #     name: spirehealth.com.crt
+    #     path: build
 
     - name: Build, tag, and push image to Amazon ECR
       env:
