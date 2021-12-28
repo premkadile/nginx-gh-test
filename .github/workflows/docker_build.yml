@@ -29,7 +29,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Upload ssl certs
-          path: ssl
+          path: ssl/
           retention-days: 1
 
       # - name: Temporarily save cert artifact
@@ -72,7 +72,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: Get ssl certs
-        path: ssl 
+        path: ssl/
 
     # - name: Retrieve saved cert artifact
     #   uses: actions/download-artifact@v2
